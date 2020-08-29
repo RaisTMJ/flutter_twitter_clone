@@ -1,4 +1,3 @@
-//INFO: Main Screen
 import 'package:flutter/material.dart';
 import 'custom_theme.dart';
 import 'home_screen.dart';
