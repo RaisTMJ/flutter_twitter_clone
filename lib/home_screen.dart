@@ -1,5 +1,6 @@
 //INFO: Home Screen
 import 'package:flutter/material.dart';
+import 'package:project_test/data_sample.dart';
 import 'package:project_test/theme.dart';
 
 import 'custom_theme.dart';
@@ -22,100 +23,11 @@ class HomeScreenState extends State<HomeScreen> {
   var _theme = 0;
 
   //INFO: Users
-  static final geekmz = User(
-    'Mohamad Rais',
-    'raisTmj',
-    'images/profile.jpg',
-    'images/banner.jfif',
-    'Flutter developer. I create clone apps and much more! 👨‍💻',
-    2,
-    1200,
-    false,
-  );
-  static final darwiis = User(
-      'Darwiis',
-      'darwiis_a',
-      'images/darwiis.jpg',
-      'images/wiis.jfif',
-      'Google’s UI toolkit to build apps for mobile, web, & desktop from a single codebase //',
-      35,
-      88675,
-      true);
+  static final raisUsers = IraisUsers;
+  static final darwiis = Idarwiis;
 
   //INFO: Twts
-  final List<Twt> _twts = [
-    Twt(
-      darwiis,
-      '#FlutterFriday\nis\nhere.\n\nRight pointing backhand indexYou can specify whether your Flutter '
-          'project uses Swift, Objective C, Kotlin, or Java by specifying:\n\n"--ios-language objc" or "--android-langu'
-          'age java" when you type "flutter create".\n\nElectric light bulbBy default new projects use Kotlin and '
-          'Swift.',
-      null,
-      15,
-      false,
-      38,
-      false,
-      244,
-      1587345183868,
-    ),
-    Twt(
-      geekmz,
-      'This is a test twt to see how all this works, yay!',
-      null,
-      495,
-      false,
-      193,
-      false,
-      2,
-      1587343553550,
-    ),
-    Twt(
-      darwiis,
-      '⚡️Flutter is fast by default, but let\'s find out what might affect your app\'s performance.\n\nJoin '
-          '@filiphracek at #FlutterEurope as he walks the audience through an app with many performance issues, and '
-          'tries to address all of them.\n\nWatch here → https://goo.gle/2UPajJy',
-      'https://pbs.twimg.com/media/EUng32oVAAMhOwH?format=jpg&name=medium',
-      286,
-      false,
-      66,
-      false,
-      5,
-      1585852320000,
-    ),
-    Twt(
-      geekmz,
-      r"Well... this is a more longer twt, I'm not sure if it works or not but, who knows, maybe it does",
-      null,
-      198,
-      false,
-      43,
-      false,
-      0,
-      1585751520000,
-    ),
-    Twt(
-      geekmz,
-      'Meh, not much',
-      'https://miro.medium.com/max/1400/1*pFq49dtiBDpE5U4tySu-Hg.png',
-      34,
-      false,
-      4,
-      false,
-      0,
-      1585427520000,
-    ),
-    Twt(
-      darwiis,
-      r"We are postponing the LATAM Roadshow. The health and safety of our community is our priority. We'll be sure to update you as soon as we have more information.\n\n💙Thank you for keeping this community thriving, and stay tuned!\n\n- The Flutter Team",
-      null,
-      150,
-      false,
-      20,
-      false,
-      3,
-      1585852320000,
-    ),
-  ];
+  final List<Twt> _twts = tweets;
 
   void _changeTheme(BuildContext buildContext, ThemeKeys key) {
     if (_themeState == null) {
@@ -362,7 +274,7 @@ class HomeScreenState extends State<HomeScreen> {
                       Navigator.of(context).pop();
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            ProfileScreen(user: geekmz, list: _twts, context: context, themeState: _themeState),
+                            ProfileScreen(user: raisUsers, list: _twts, context: context, themeState: _themeState),
                       ));
                     },
                     child: Container(
@@ -372,21 +284,21 @@ class HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
-                        child: Image.asset(geekmz.avatar, fit: BoxFit.cover),
+                        child: Image.asset(raisUsers.avatar, fit: BoxFit.cover),
                       ),
                     ),
                   ),
                   SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(geekmz.name + 'adasd', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                    child: Text(raisUsers.name + 'adasd', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
                   ),
                   SizedBox(height: 4),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Opacity(
                       opacity: 0.6,
-                      child: Text('@${geekmz.username}'),
+                      child: Text('@${raisUsers.username}'),
                     ),
                   ),
                   SizedBox(height: 14),
@@ -395,11 +307,11 @@ class HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('${geekmz.following}', style: TextStyle(fontWeight: FontWeight.w600)),
+                        Text('${raisUsers.following}', style: TextStyle(fontWeight: FontWeight.w600)),
                         SizedBox(width: 2),
                         Opacity(opacity: 0.6, child: Text('Following')),
                         SizedBox(width: 15),
-                        Text('${geekmz.followers}', style: TextStyle(fontWeight: FontWeight.w600)),
+                        Text('${raisUsers.followers}', style: TextStyle(fontWeight: FontWeight.w600)),
                         SizedBox(width: 2),
                         Opacity(opacity: 0.6, child: Text('Followers')),
                       ],
@@ -525,7 +437,7 @@ class HomeScreenState extends State<HomeScreen> {
       backgroundColor: Theme.of(context).accentColor,
       onPressed: () async {
         var twt = await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ComposeTwt(context: context, user: geekmz),
+          builder: (context) => ComposeTwt(context: context, user: raisUsers),
           fullscreenDialog: true,
         ));
         if (twt != null) {
@@ -633,7 +545,7 @@ class HomeScreenState extends State<HomeScreen> {
                       height: 30,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15),
-                        child: Image.asset(geekmz.avatar, fit: BoxFit.cover),
+                        child: Image.asset(raisUsers.avatar, fit: BoxFit.cover),
                       ),
                     ),
                   ),
